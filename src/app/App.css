@@ -2,8 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
 * {
-  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  user-select: none;
 }
 
 html,
@@ -14,60 +17,4 @@ body,
 
 body {
   margin: 0;
-}
-
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-button {
-  cursor: pointer;
-}
-
-.container {
-  text-align: center;
-  height: 100%;
-  width: 480px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-#number-display {
-  font-size: 72px;
-}
-
-#solution > input {
-  font-size: 28px;
-  text-align: center;
-  margin: 40px 0;
-  width: 80px;
-}
-
-svg {
-  height: 83px;
-  width: 60px;
-}
-
-@keyframes rollin {
-  0% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: none;
-  }
-}
-
-@keyframes fill {
-  0% {
-    width: 0%;
-  }
-
-  100% {
-    width: 100%;
-  }
 }

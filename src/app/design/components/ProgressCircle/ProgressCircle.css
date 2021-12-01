@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+.circular {
+  position: relative;
+}
+.circular .inner {
+  position: absolute;
+  z-index: 6;
+  top: 50%;
+  left: 50%;
+  border-radius: 100%;
+}
+.circular .inside {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+.circular .bar {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 100%;
+}
+.circle .bar .progress {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 100%;
+}
+
+@keyframes left {
+  100% {
+    transform: rotate(180deg);
+  }
+}
+.circle .right {
+  transform: rotate(180deg);
+  z-index: 3;
+}
+
+@keyframes right {
+  100% {
+    transform: rotate(180deg);
+  }
+}

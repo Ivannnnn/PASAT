@@ -11,3 +11,5 @@ export const cx = (...args) => {
     .filter(Boolean)
     .join(' ')
 }
+
+export const isNumeric = (v) => !isNaN(parseInt(v))
