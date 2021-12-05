@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 export const cx = (...args) => {
   return args
     .map((arg) => {
@@ -13,3 +15,14 @@ export const cx = (...args) => {
 }
 
 export const isNumeric = (v) => !isNaN(parseInt(v))
+
+export function useUpdateState(initial) {
+  const [state, setState] = useState(initial)
+  const update = (stateOrFunc) =>
+    setState((state) => ({
+      ...state,
+      ...(typeof stateOrFunc === 'function' ? stateOrFunc(state) : stateOrFunc),
+    }))
+
+  return [state, update]
+}
