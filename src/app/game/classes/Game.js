@@ -4,7 +4,7 @@ import { speak } from '@/game/speaker'
 export default class Game {
   static defaultConfig = {
     n: 2,
-    auditory: false,
+    mode: 'visual',
   }
 
   data = {
@@ -45,7 +45,7 @@ export default class Game {
       data.numbers.push(newNumber)
     })
 
-    if (this.config.auditory) speak(newNumber)
+    if (this.config.mode === 'auditory') speak(newNumber)
 
     return newNumber
   }
