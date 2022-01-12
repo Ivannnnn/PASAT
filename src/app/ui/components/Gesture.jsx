@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import AlloyFinger from 'alloyfinger'
 
-export default function Gesture({ on, run, children }) {
+export default function Gesture({ on, run, children, className }) {
   const ref = useRef()
 
   useEffect(() => {
@@ -16,5 +16,9 @@ export default function Gesture({ on, run, children }) {
     return () => instances.forEach((instance) => instance.destroy())
   }, [run])
 
-  return <div ref={ref}>{children}</div>
+  return (
+    <div ref={ref} className={className}>
+      {children}
+    </div>
+  )
 }
