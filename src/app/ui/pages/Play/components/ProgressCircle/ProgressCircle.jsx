@@ -1,5 +1,6 @@
 import { cx } from '@/helpers'
 import './ProgressCircle.css'
+import Gesture from '@/ui/components/Gesture'
 
 function getStyles({ duration, width, outerWidth, innerColor, outerColor }) {
   return {
@@ -30,21 +31,28 @@ function getStyles({ duration, width, outerWidth, innerColor, outerColor }) {
   }
 }
 
-export default function ProgressCircle({ children, className, ...props }) {
+export default function ProgressCircle({
+  children,
+  className,
+  onTap,
+  ...props
+}) {
   const styles = getStyles(props)
 
   return (
-    <div className={cx('circular', className)} style={styles.circular}>
-      <div className="inner" style={styles.inner}></div>
-      <div className="inside">{children}</div>
-      <div className="circle">
-        <div className="bar left" style={styles.bar}>
-          <div className="progress" style={styles.leftProgress}></div>
-        </div>
-        <div className="bar right" style={styles.bar}>
-          <div className="progress" style={styles.rightProgress}></div>
+    <Gesture on="tap" run={onTap}>
+      <div className={cx('circular', className)} style={styles.circular}>
+        <div className="inner" style={styles.inner}></div>
+        <div className="inside">{children}</div>
+        <div className="circle">
+          <div className="bar left" style={styles.bar}>
+            <div className="progress" style={styles.leftProgress}></div>
+          </div>
+          <div className="bar right" style={styles.bar}>
+            <div className="progress" style={styles.rightProgress}></div>
+          </div>
         </div>
       </div>
-    </div>
+    </Gesture>
   )
 }

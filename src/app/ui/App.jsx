@@ -7,6 +7,7 @@ import Play from './pages/Play/Play'
 import Result from './pages/Result/Result'
 
 const fakeGame = {
+  type: 'competitive',
   status: 'running',
   config: {
     interval: 0,
@@ -22,12 +23,6 @@ function App() {
   const [game, setGame] = useState(null)
   const [, forceRender] = useReducer((x) => x + 1, 0)
 
-  //useEffect(startFakeGame, [])
-
-  function startFakeGame() {
-    setGame(fakeGame)
-  }
-
   useEffect(() => {
     if (game) {
       game.on('ended', forceRender)
@@ -41,11 +36,15 @@ function App() {
     setGame(game)
   }
 
+  function reset() {
+    setGame(null)
+  }
+
   if (!game) return <Options start={startGame} />
 
   return {
-    running: <Play game={game} />,
-    ended: <Result game={game} />,
+    running: <Play game={game} reset={reset} />,
+    ended: <Result game={game} reset={reset} />,
   }[game.status]
 }
 

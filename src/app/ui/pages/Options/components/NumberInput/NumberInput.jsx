@@ -1,5 +1,7 @@
+import { useCallback } from 'react'
 import Chevron from './components/Chevron'
 import { cx } from '@/helpers'
+import Gesture from '@/ui/components/Gesture'
 
 export default function NumberInput({
   children,
@@ -19,21 +21,30 @@ export default function NumberInput({
     if (value > Math.max(min, -Infinity)) onChange(value - step, 1)
   }
 
+  function swipe({ direction }) {
+    ;({
+      Left: increment,
+      Right: decrement,
+    }[direction]())
+  }
+
   return (
-    <div
-      className={cx(
-        'border-gray-500 border-2 rounded-full flex justify-between items-center select-none',
-        big ? 'py-2 px-3 w-40' : 'w-28 py-2 px-2',
-        className
-      )}
-    >
-      <Chevron
-        direction="left"
-        onClick={decrement}
-        className={big ? 'w-4 h-7' : 'w-3 h-4'}
-      />
-      {children(value)}
-      <Chevron onClick={increment} className={big ? 'w-4 h-7' : 'w-3 h-4'} />
-    </div>
+    <Gesture on="swipe" run={swipe}>
+      <div
+        className={cx(
+          'border-gray-500 border-2 rounded-full flex justify-between items-center select-none',
+          big ? 'py-2 px-3 w-40' : 'w-28 py-2 px-2',
+          className
+        )}
+      >
+        <Chevron
+          direction="left"
+          onClick={decrement}
+          className={big ? 'w-4 h-7' : 'w-3 h-4'}
+        />
+        {children(value)}
+        <Chevron onClick={increment} className={big ? 'w-4 h-7' : 'w-3 h-4'} />
+      </div>
+    </Gesture>
   )
 }
