@@ -3,6 +3,41 @@ import ProgressCircle from './components/ProgressCircle/ProgressCircle'
 import Solution from './components/Solution/Solution'
 import ButtonDisplay from '../components/ButtonDisplay'
 import Gesture from '@/ui/components/Gesture'
+import { cx } from '@/helpers'
+
+function Item({ val, hidden, onClick }) {
+  return (
+    <li
+      className={cx(
+        'w-1/3 h-12 flex items-center justify-center border cursor-pointer',
+        {
+          'bg-white': !hidden,
+        }
+      )}
+      onClick={() => onClick && onClick(val)}
+    >
+      {val}
+    </li>
+  )
+}
+
+function Keyboard({ onClick }) {
+  return (
+    <ul className="flex w-64 flex-wrap flex-row-reverse">
+      <Item val={9} onClick={onClick} />
+      <Item val={8} onClick={onClick} />
+      <Item val={7} onClick={onClick} />
+      <Item val={6} onClick={onClick} />
+      <Item val={5} onClick={onClick} />
+      <Item val={4} onClick={onClick} />
+      <Item val={3} onClick={onClick} />
+      <Item val={2} onClick={onClick} />
+      <Item val={1} onClick={onClick} />
+      <Item hidden />
+      <Item val={0} onClick={onClick} />
+    </ul>
+  )
+}
 
 export default function Play({ game, reset }) {
   const [, forceRender] = useReducer((x) => x + 1, 0)
@@ -19,8 +54,12 @@ export default function Play({ game, reset }) {
   }
 
   return (
-    <Gesture on="swipe" run={swipe}>
-      <div className="p-4 bg-gray-200 h-screen flex flex-col items-center justify-center">
+    <div className="p-4 bg-gray-200 h-screen flex flex-col items-center">
+      <Gesture
+        on="swipe"
+        run={swipe}
+        className="flex flex-col justify-center flex-grow items-center"
+      >
         <ButtonDisplay className="mb-16">
           <span className="text-green mr-1">{game.config.n}</span>
           <span className="text-gray-400">N</span>
@@ -65,7 +104,17 @@ export default function Play({ game, reset }) {
             {game.round > 0 ? game.round - 1 : 0}
           </span>
         </ButtonDisplay>
-      </div>
-    </Gesture>
+      </Gesture>
+
+      <Keyboard
+        onClick={(n) => {
+          game.setSolution(
+            String(game.currentSolution).length >= 2
+              ? Number(n)
+              : Number('' + game.currentSolution + n)
+          )
+        }}
+      />
+    </div>
   )
 }
