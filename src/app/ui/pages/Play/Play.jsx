@@ -5,7 +5,7 @@ import ButtonDisplay from '../components/ButtonDisplay'
 import Gesture from '@/ui/components/Gesture'
 import { cx } from '@/helpers'
 
-function Item({ val, hidden }) {
+function Item({ val, hidden, onClick }) {
   return (
     <li
       className={cx(
@@ -14,26 +14,27 @@ function Item({ val, hidden }) {
           'bg-white': !hidden,
         }
       )}
+      onClick={() => onClick && onClick(val)}
     >
       {val}
     </li>
   )
 }
 
-function Keyboard() {
+function Keyboard({ onClick }) {
   return (
-    <ul class="flex w-64 flex-wrap flex-row-reverse">
-      <Item val={9} />
-      <Item val={8} />
-      <Item val={7} />
-      <Item val={6} />
-      <Item val={5} />
-      <Item val={4} />
-      <Item val={3} />
-      <Item val={2} />
-      <Item val={1} />
+    <ul className="flex w-64 flex-wrap flex-row-reverse">
+      <Item val={9} onClick={onClick} />
+      <Item val={8} onClick={onClick} />
+      <Item val={7} onClick={onClick} />
+      <Item val={6} onClick={onClick} />
+      <Item val={5} onClick={onClick} />
+      <Item val={4} onClick={onClick} />
+      <Item val={3} onClick={onClick} />
+      <Item val={2} onClick={onClick} />
+      <Item val={1} onClick={onClick} />
       <Item hidden />
-      <Item val={0} />
+      <Item val={0} onClick={onClick} />
     </ul>
   )
 }
@@ -105,7 +106,15 @@ export default function Play({ game, reset }) {
         </ButtonDisplay>
       </Gesture>
 
-      <Keyboard />
+      <Keyboard
+        onClick={(n) => {
+          game.setSolution(
+            String(game.currentSolution).length >= 2
+              ? Number(n)
+              : Number('' + game.currentSolution + n)
+          )
+        }}
+      />
     </div>
   )
 }
